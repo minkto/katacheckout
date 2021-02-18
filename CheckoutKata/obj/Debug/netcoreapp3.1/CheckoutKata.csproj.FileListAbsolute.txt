@@ -1,0 +1,13 @@
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.exe
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.deps.json
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.runtimeconfig.json
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.runtimeconfig.dev.json
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.dll
+D:\Kata\CheckoutKata\CheckoutKata\bin\Debug\netcoreapp3.1\CheckoutKata.pdb
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.csprojAssemblyReference.cache
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.AssemblyInfoInputs.cache
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.AssemblyInfo.cs
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.csproj.CoreCompileInputs.cache
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.dll
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.pdb
+D:\Kata\CheckoutKata\CheckoutKata\obj\Debug\netcoreapp3.1\CheckoutKata.genruntimeconfig.cache
