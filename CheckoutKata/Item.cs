@@ -35,5 +35,6 @@ namespace CheckoutKata
             this.UnitPrice = unitPrice;
         }
         #endregion
+       
     }
 }
