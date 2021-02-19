@@ -21,7 +21,7 @@ namespace xCheckoutKat.UnitTests
         }
 
         [Fact]
-        public void Basket_Calculate_Individual_Items_Total()
+        public void Checkout_Basket_Calculate_Individual_Items_Total()
         {
             // Arrange
             Basket basket = new Basket();
@@ -32,49 +32,54 @@ namespace xCheckoutKat.UnitTests
             basket.Items.Add(new Item("D", 40));
             basket.Items.Add(new Item("D", 55));
 
+            Checkout checkout = new Checkout(basket);
+
             // Assert
-            Assert.Equal(120, basket.TotalItemsCost);
+            Assert.Equal(120, checkout.TotalBasketCost);
         }
 
         #region Promotion B Tests
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_B_Items_Only_Multiple_3_Item_Count()
+        public void Checkout_Basket_Calculate_Individual_Promotion_B_Items_Only_Multiple_3_Item_Count()
         {
             // Arrange - Multples of 3 starting with 3.
-            Basket basketWith3BItems = GenerateSpecifiedItemsBasket(3,"B",15);
-            Basket basketWith6BItems = GenerateSpecifiedItemsBasket(6, "B", 15);
-            Basket basketWith9BItems = GenerateSpecifiedItemsBasket(9, "B", 15);
-            Basket basketWith12BItems = GenerateSpecifiedItemsBasket(12, "B", 15);
+            ICalculatePromotionB calculatePromotionB3Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(3, "B", 15).Items);
+            ICalculatePromotionB calculatePromotionB6Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(6, "B", 15).Items);
+            ICalculatePromotionB calculatePromotionB9Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(9, "B", 15).Items);
+            ICalculatePromotionB calculatePromotionB12Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(12, "B", 15).Items);
+
 
             // Assert
-            Assert.Equal(40, basketWith3BItems.CalculatePromotionB());
-            Assert.Equal(80, basketWith6BItems.CalculatePromotionB());
-            Assert.Equal(120, basketWith9BItems.CalculatePromotionB());
-            Assert.Equal(160, basketWith12BItems.CalculatePromotionB());
+            Assert.Equal(40, calculatePromotionB3Items.CalculatePromotionBCost());
+            Assert.Equal(80, calculatePromotionB6Items.CalculatePromotionBCost());
+            Assert.Equal(120, calculatePromotionB9Items.CalculatePromotionBCost());
+            Assert.Equal(160, calculatePromotionB12Items.CalculatePromotionBCost());
         }
 
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_B_Items_No_Promotion_Item_Count()
+        public void Checkout_Basket_Calculate_Individual_Promotion_B_Items_No_Promotion_Item_Count()
         {
             // Arrange 
-            Basket basket = GenerateSpecifiedItemsBasket(2, "B", 15);            
+            ICalculatePromotionB calculatePromotionB2Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(2, "B", 15).Items);
+
 
             // Assert
-            Assert.Equal(30, basket.CalculatePromotionB());
+            Assert.Equal(30, calculatePromotionB2Items.CalculatePromotionBCost());
         }
 
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_B_Mixed_Amount()
+        public void Checkout_Basket_Calculate_Individual_Promotion_B_Mixed_Amount()
         {
             // Arrange 
-            Basket basketWith5BItems = GenerateSpecifiedItemsBasket(5, "B", 15);
-            Basket basketWith8BItems = GenerateSpecifiedItemsBasket(8, "B", 15);
-            Basket basketWith11BItems = GenerateSpecifiedItemsBasket(11, "B", 15);
+            ICalculatePromotionB calculatePromotionB5Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(5, "B", 15).Items);
+            ICalculatePromotionB calculatePromotionB8Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(8, "B", 15).Items);
+            ICalculatePromotionB calculatePromotionB11Items = new CalculatePromotionB(GenerateSpecifiedItemsBasket(11, "B", 15).Items);
+
 
             // Assert
-            Assert.Equal(70, basketWith5BItems.CalculatePromotionB());
-            Assert.Equal(110, basketWith8BItems.CalculatePromotionB());
-            Assert.Equal(150, basketWith11BItems.CalculatePromotionB());
+            Assert.Equal(70, calculatePromotionB5Items.CalculatePromotionBCost());
+            Assert.Equal(110, calculatePromotionB8Items.CalculatePromotionBCost());
+            Assert.Equal(150, calculatePromotionB11Items.CalculatePromotionBCost());
 
         }
 
@@ -82,46 +87,66 @@ namespace xCheckoutKat.UnitTests
 
         #region Promotion D Tests
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_D_Items_Only_Multiple_2_Item_Count()
+        public void Checkout_Basket_Calculate_Individual_Promotion_D_Items_Only_Multiple_2_Item_Count()
         {
             // Arrange - Multples of 2 starting with 2.
-            Basket basketWith2DItems = GenerateSpecifiedItemsBasket(2, "D",55);
-            Basket basketWith4DItems = GenerateSpecifiedItemsBasket(4, "D",55);
-            Basket basketWith6DItems = GenerateSpecifiedItemsBasket(6, "D", 55);
-            Basket basketWith8DItems = GenerateSpecifiedItemsBasket(8, "D", 55);
+
+            ICalculatePromotionD calculatePromotionD2Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(2, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD4Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(4, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD6Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(6, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD8Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(8, "D", 55).Items);
 
             // Assert
-            Assert.Equal(Math.Round(82.50M, 2), basketWith2DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(144.38M, 2), basketWith4DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(190.78M, 2), basketWith6DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(225.59M, 2), basketWith8DItems.CalculatePromotionD());
+            Assert.Equal(Math.Round(82.50M, 2), calculatePromotionD2Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(144.38M, 2), calculatePromotionD4Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(190.78M, 2), calculatePromotionD6Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(225.59M, 2), calculatePromotionD8Items.CalculatePromotionDCost());
         }
 
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_D_Items_Only_No_Promotion()
+        public void Checkout_Basket_Calculate_Individual_Promotion_D_Items_Only_No_Promotion()
         {
-            Basket basketWith2DItems = GenerateSpecifiedItemsBasket(1, "D", 55);
+            // Arrange
+            ICalculatePromotionD calculatePromotionD2Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(1, "D", 55).Items);
 
             // Assert
-            Assert.Equal(55, basketWith2DItems.CalculatePromotionD());
+            Assert.Equal(55, calculatePromotionD2Items.CalculatePromotionDCost());
         }
 
         [Fact]
-        public void Basket_Calculate_Individual_Promotion_D_Mixed_Amount()
+        public void Checkout_Basket_Calculate_Individual_Promotion_D_Mixed_Amount()
         {
             // Arrange 
-            Basket basketWith2DItems = GenerateSpecifiedItemsBasket(3, "D", 55);
-            Basket basketWith4DItems = GenerateSpecifiedItemsBasket(5, "D", 55);
-            Basket basketWith6DItems = GenerateSpecifiedItemsBasket(7, "D", 55);
-            Basket basketWith8DItems = GenerateSpecifiedItemsBasket(8, "D", 55);
+            ICalculatePromotionD calculatePromotionD3Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(3, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD5Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(5, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD7Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(7, "D", 55).Items);
+            ICalculatePromotionD calculatePromotionD8Items = new CalculatePromotionD(GenerateSpecifiedItemsBasket(8, "D", 55).Items);
 
             // Assert
-            Assert.Equal(Math.Round(137.50M, 2), basketWith2DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(199.38M, 2), basketWith4DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(245.78M, 2), basketWith6DItems.CalculatePromotionD());
-            Assert.Equal(Math.Round(225.59M, 2), basketWith8DItems.CalculatePromotionD());
+            Assert.Equal(Math.Round(137.50M, 2), calculatePromotionD3Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(199.38M, 2), calculatePromotionD5Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(245.78M, 2), calculatePromotionD7Items.CalculatePromotionDCost());
+            Assert.Equal(Math.Round(225.59M, 2), calculatePromotionD8Items.CalculatePromotionDCost());
 
         }
+        #endregion
+
+        #region Checkout Calculation
+        public void Checkout_Basket_Calculate_All_Item_Types_With_B_Promotion()
+        { 
+            // TODO:
+        }
+
+        public void Checkout_Basket_Calculate_All_Item_Types_With_D_Promotion()
+        {
+            // TODO:
+        }
+
+        public void Checkout_Basket_Calculate_All_Item_Types_With_B_D_Promotion()
+        {
+            // TODO:
+        }
+
         #endregion
 
         public Basket GenerateSpecifiedItemsBasket(int amountOfItems,string itemSKU,decimal unitCost) 
