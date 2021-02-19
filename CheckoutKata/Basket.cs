@@ -16,8 +16,7 @@ namespace CheckoutKata
         public List<Item> Items { get; set; }
 
 
-        public decimal TotalItemsCost { get { return CalculateBasketTotal(); }  }
-
+        public decimal TotalItemsCost { get { return CalculateBasketTotal(); } }
 
 
         public Basket()
@@ -30,13 +29,13 @@ namespace CheckoutKata
             Items = items;
         }
 
-        private decimal CalculateBasketTotal() 
+        private decimal CalculateBasketTotal()
         {
             decimal total = 0;
 
-            if(Items != null) 
-            { 
-                foreach(Item item in Items) 
+            if (Items != null)
+            {
+                foreach (Item item in Items)
                 {
                     total += item.UnitPrice;
                 }
@@ -58,13 +57,13 @@ namespace CheckoutKata
             decimal unitItemCost = 0;
 
             // Assume All costs for now are the same.
-            if (this.Items != null && this.Items.Count > 0) 
+            if (this.Items != null && this.Items.Count > 0)
             {
                 unitItemCost = this.Items[0].UnitPrice;
             }
 
             for (int i = 1; i <= this.Items.Count; i++)
-            {                               
+            {
                 if (i % 3 == 0)
                 {
                     multiple++;
@@ -76,8 +75,40 @@ namespace CheckoutKata
                 }
             }
 
-          
             return calculatedUnitPrice;
+        }
+
+
+        public decimal CalculatePromotionD() 
+        {
+            //    Given I have added a multiple of 2 lots of item ‘D’ to the basket 
+            //    Then a promotion of ‘25% off’ should be applied to every multiple of 2.            
+            decimal calculatedUnitPrice = 0M;
+            decimal unitItemCost = 0;
+            decimal calculatedDiscountPrice = 0;
+
+            // Assume All costs for now are the same.
+            if (this.Items != null && this.Items.Count > 0)
+            {
+                unitItemCost = this.Items[0].UnitPrice;
+            }
+
+            for (int i = 1; i <= this.Items.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    calculatedUnitPrice += unitItemCost;
+                    calculatedDiscountPrice = ( 25M / 100) * calculatedUnitPrice;
+                    calculatedUnitPrice -= calculatedDiscountPrice;
+                }
+                else
+                {
+                    calculatedUnitPrice += unitItemCost;
+                }
+            }
+
+            return Math.Round(calculatedUnitPrice,2);
+        
         }
     }
 }
